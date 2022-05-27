@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    #pakdo div{
+
+      box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+
+      }
+      #pakdo img{
+        width:50%
+      }
+    /* #pakdo img:hover{
+       width:70%;
+       cursor: pointer;
+       background-color: beige;
+      
+    } */
+    #pakdo div:hover{
+      background-color: maroon;
+    }
+    #pakdo div:hover>img{
+      width:70%;
+       cursor: pointer;
+    }
+    p,h4,h3,h2{
+      color: white;
+      /* border: 1px solid black; */
+      
+    }
+
+      #pakdo{
+        display:grid;
+        grid-template-columns: repeat(3,1fr);
+        gap:1%
+        }
+        img{
+          width:80%;
+        }
+        body{
+          background-color: black;
+        }
+        #query{
+          margin-left: 49%;
+          text-align: center;
+          position: fixed;
+          margin-top: 4%;
+        }
+        button{
+          margin-left: 53%;
+          padding: 1%;
+          background-color:darkorchid;
+          color: aqua;
+          position: fixed;
+        }
+        #sec{
+          display:flex;
+          justify-content: space-between;
+        
+        }
+        #recom img{
+          width:40%;
+        }
+        #recom{
+          background-color: maroon;
+        }
+        #recom img:hover{
+          cursor: pointer;
+          width:80%
+
+
+        }
+      p{
+        color: rgb(164, 180, 57);
+        font-weight: bold;
+        font-size: 18px;
+      }
+      h1{
+        color: greenyellow;
+        font-style: italic;
+      }
+    
+
+
+      #query {
+
+width: 200px;
+}
+  #hey{
+display:flex;
+
+}
+#hey img{
+width:20%
+}
+#hey:hover{
+cursor:pointer;
+background-color: maroon;
+}
+#double{
+  width:18%
+}
+#double>div:hover img{
+  width:30%;
+
+}
+
+
+#movies {
+display: none;
+height: 200px;
+width: 206px;
+border:none;
+overflow: scroll;
+overflow-x: hidden;
+color: white;
+-ms-overflow-style: none;
+position: fixed;
+margin-left:49%;
+margin-top: 6%;
+}
+    
+    </style>
+</head>
+<body>
+ 
+  
+
+  <button onclick='window.location.href="trending.html"'>lets go to Trendng</button>
+    <input type="text" id="query" placeholder="get movie"   oninput="debounce(main,1000)"type="text" >
+  
+    <button onclick="getitem()"> search</button>
+   
+    <div id="movies"></div>
+ 
+
+    <hr>
+    <div id="sec">
+    <div id="pakdo">
+
+    </div>
+    <div id="double"></div>
+    <div id="recom">
+      <h1>Recomended</h1>
+      <p>rating >8</p>
+    </div>
+  </div>
+
+</body>
+</html>
+
+<script>
+
+ 
+var count=0
+async function getitem(){
+
+     try{
+     
+      var aya=document.querySelector("#query").value
+          count++
+        let res=await fetch(`http://www.omdbapi.com/?apikey=faf4e461&s=${aya}`);
+        let res1=await fetch(`http://www.omdbapi.com/?apikey=faf4e461&s=noor`)
+        let data1=await res1.json()
+        let data =await res.json()
+        // console.log(data)
+        //  again(data1)
+          bhejo(data)
+         
+     }
+  
+     catch(err){
+   
+    console.log(err)
+     if(count>1){
+       err=document.createElement("img")
+
+      err.setAttribute("src","https://media.istockphoto.com/photos/computer-error-picture-id1222806141?k=20&m=1222806141&s=612x612&w=0&h=GoODCHnR0mSefDBLWJpnqVnfRKH9ttdYPO0-KEYbb7w=")
+      
+
+      document.querySelector("#pakdo").append(err)
+     }
+    }
+
+  
+    
+  
+    
+  function bhejo(d){
+    document.querySelector("#pakdo").innerHTML=""
+ console.log(d)
+d.Search.forEach(function(el,index){
+  console.log(el)
+
+var div=document.createElement("div")
+var img=document.createElement("img")
+img.setAttribute("src",el.Poster)
+var title=document.createElement("h2")
+title.textContent=el.Title
+var rat=document.createElement("h3")
+rat.textContent=el.Year
+var r=document.createElement("h3")
+r.textContent=Math.round(Math.random()*9)
+
+
+div.append(img,title,rat,r)
+
+document.querySelector("#pakdo").append(div)
+
+
+if(r.textContent>8){
+  var div1=document.createElement("div")
+var img1=document.createElement("img")
+img1.setAttribute("src",el.Poster)
+var title1=document.createElement("h3")
+title1.textContent=el.Title
+var rat1=document.createElement("h4")
+rat1.textContent=el.Year
+// var r=document.createElement("h3")
+// r.textContent=Math.round(Math.random()*9)
+div1.append(img1,title1,rat1)
+document.querySelector("#recom").addEventListener("click",function(){
+      window.location.href="trending.html"
+      trending()
+})
+
+
+document.querySelector("#recom").append(div)
+ }
+
+
+})
+
+
+  }
+
+  }
+  getitem()
+
+  
+
+
+
+  async function searchmovie(){
+        try{
+    let movie = document.querySelector("#query").value
+    let res = await fetch(`https://www.omdbapi.com/?apikey=d806bd70&s=${movie}`)
+
+    let data = await res.json();
+    return data.Search
+    // console.log("data:", data)
+    }
+    catch(err){
+        console.log("err",err)
+    }
+    }
+
+    async  function main(){
+      let data = await searchmovie()
+      if(data ===undefined){
+          return false
+      }
+      appenddata(data)
+      console.log("data:",data)
+
+    }
+
+    function appenddata(mov){
+        document.querySelector("#movies").innerHTML=""
+        mov.forEach(function(ele){
+     var a = document.createElement("div")
+     a.setAttribute("id","hey")
+
+            let img = document.createElement("img")
+            img.setAttribute("src",ele.Poster)
+            let p =document.createElement("p")
+            p.innerText = ele.Title
+            var h3=document.createElement("h5")
+            h3.textContent= ele.Type
+            a.append(img,p,h3)
+          
+            document.querySelector("#movies").append(a)
+           
+            
+
+            
+            a.addEventListener("click",function(){
+                showme(a,ele.Type,ele.Year)
+            })
+
+
+            document.querySelector("#movies").append(a)
+        })
+    }
+   
+
+   
+
+ //"a"-->debouce()
+ let timerId;
+    function debounce(func,delay){
+     var n=document.querySelector("#query").value
+    if(n==""){
+      document.querySelector("#movies").innerHTML=""
+    }
+    
+      document.querySelector("#movies").style.display="block"
+      if(timerId){
+          clearTimeout(timerId)
+      }
+    timerId=  setTimeout(function(){
+          func();
+      },delay)
+    }
+
+
+function showme(a,b,c){
+  var h3=document.createElement("h2")
+            h3.textContent=b
+  var h2=document.createElement("h2")
+            h3.textContent=c
+  a.append(h3,h2)
+  document.querySelector("#double").innerHTML=""
+  // var di=document.createElement("div")
+  // di.append(img,p)
+
+  document.querySelector("#double").append(a)
+  document.querySelector("#movies").append(b)
+}
+
+    
+
+
+
+
+
+
+
+</script>

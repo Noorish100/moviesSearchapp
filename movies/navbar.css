@@ -1,0 +1,26 @@
+#upper{
+    width:99%;
+    display:flex;
+    border:1px solid green;
+    background-color: burlywood;
+    position: fixed;
+    
+    
+}
+#subupper{
+    width:90%;
+    display:flex;
+    margin-left: 4%;
+    background-color: burlywood;
+    position: fixed;
+
+    
+}
+#subupper button{
+    border: 0px;
+     padding:5px;
+    color:black;
+    margin: auto;
+    background-color:grey;
+  
+}

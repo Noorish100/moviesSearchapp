@@ -1,0 +1,119 @@
+/* search style */
+
+#pakdo div{
+
+    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+
+    }
+    #pakdo img{
+      width:50%
+    }
+  /* #pakdo img:hover{
+     width:70%;
+     cursor: pointer;
+     background-color: beige;
+    
+  } */
+  #pakdo div:hover{
+    background-color: maroon;
+  }
+  #pakdo div:hover>img{
+    width:70%;
+     cursor: pointer;
+  }
+  p,h4,h3,h2{
+    color: white;
+    /* border: 1px solid black; */
+    
+  }
+
+    #pakdo{
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:1%
+      }
+      img{
+        width:80%;
+      }
+      body{
+        background-color: black;
+      }
+      #query{
+        margin-left: 49%;
+        text-align: center;
+        position: fixed;
+        margin-top: 4%;
+      }
+      button{
+        margin-left: 53%;
+        padding: 1%;
+        background-color:darkorchid;
+        color: aqua;
+        position: fixed;
+      }
+      #sec{
+        display:flex;
+        justify-content: space-between;
+      
+      }
+      #recom img{
+        width:40%;
+      }
+      #recom{
+        background-color: maroon;
+      }
+      #recom img:hover{
+        cursor: pointer;
+        width:80%
+
+
+      }
+    p{
+      color: rgb(164, 180, 57);
+      font-weight: bold;
+      font-size: 18px;
+    }
+    h1{
+      color: greenyellow;
+      font-style: italic;
+    }
+  
+
+
+    #query {
+
+width: 200px;
+}
+#hey{
+display:flex;
+
+}
+#hey img{
+width:20%
+}
+#hey:hover{
+cursor:pointer;
+background-color: maroon;
+}
+#double{
+width:18%
+}
+#double>div:hover img{
+width:30%;
+
+}
+
+
+#movies {
+display: none;
+height: 200px;
+width: 206px;
+border:none;
+overflow: scroll;
+overflow-x: hidden;
+color: white;
+-ms-overflow-style: none;
+position: fixed;
+margin-left:49%;
+margin-top: 6%;
+}

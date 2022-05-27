@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Signup</title>
+        <link rel="stylesheet" href="navbar.css">
+        <style>
+            #signup-form-div{
+            width:50%;
+            margin:auto;
+            margin-top: 10%;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          }
+          form {
+              text-align: center;
+              padding: 2%;
+          }
+
+        </style>
+    </head>
+
+    <body>
+        <div id=upper>
+            <div id="subupper">
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button onclick="window.location.href='login.html'">login</button>
+                <button onclick="window.location.href='signup.html'">signup</button>
+            </div>
+        </div>
+        <div id="signup-form-div">
+
+          
+            <form>
+                <h1>Signup</h1>
+                <!--Write form input elements here-->
+                <input class="name"type="text" placeholder="Enter your Name"><br>
+                <input  class="contact"type="text" placeholder="Enter your contact"><br>
+                <input  class="email"type="text" placeholder="Enter your email"><br>
+                <input  class="pass"type="text" placeholder="Enter your password"><br>
+                  <input type="submit" value="submit">
+            </form>
+
+        </div>
+    </body>
+
+</html>
+<script>
+
+document.querySelector("form").addEventListener("submit",move)
+var arr=[]
+function move(e){
+    e.preventDefault()
+    var a=document.querySelector(".name").value
+    var b=document.querySelector(".contact").value
+    var c=document.querySelector(".email").value
+    var d=document.querySelector(".pass").value
+
+
+    if(a||b||c||d!=""){
+        var out=new hello(a,b,c,d)
+    arr.push(out)
+    localStorage.setItem("signdata",JSON.stringify(arr))
+    console.log(arr)
+    window.location.href=("login.html")
+    }
+    else{
+    alert("fill all ")
+    }
+    
+}
+
+function hello(a,b,c,d){
+    this.name=a
+    this.contact=b
+    this.mail=c
+    this.pass=d
+    
+}
+
+</script>

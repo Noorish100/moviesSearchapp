@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="navbar.css">
+        <link rel="stylesheet" href="navbar.css">
+        <style>
+
+            body{
+                background-color: brown;
+            }
+            #slideshow{
+                width:100%;
+              
+                height: 400px;
+            }
+           #slideshow img{
+                width:100%;
+                height:400px;
+                background-image: url("https://static.digit.in/OTT/v2/images/tr:w-1200/bhoot-police-446993.jpg");
+                background-size: cover;
+
+            }
+            #movies1{
+                display: grid;
+                gap:10%;
+                grid-template-columns: repeat(3,1fr);
+                border-top: 10px solid green;
+              
+            }
+
+           
+             img{
+                width:25%
+            }
+         
+          
+            #mov{
+                display:flex;
+                justify-content: space-around;
+                background-color:pink;
+               
+            }
+            #sel{
+                padding: 1%;
+                border-radius: 50%;
+                margin-left: 50%;
+                margin-top: 1%;
+               
+            }
+            #upper{
+    width:99%;
+    display:flex;
+    border:1px solid green;
+    margin:auto;
+    background-color: burlywood;
+    position: fixed;
+    
+    
+}
+         
+             #sort-buttons{ 
+        text-align: right;
+        margin-right: 60px;
+        margin-top: 20px;
+      }
+      /* #sel{
+          background: rgba(134, 134, 133, 0.774);
+          color:white;
+          font-weight: bold;
+          font-size: 15px;
+          width: 200px;
+          height:50px;
+          padding: 10px;
+      }  */
+
+         
+
+          
+
+        </style>
+    </head>
+ 
+    <body>
+        <div id=upper>
+            <div id="subupper">
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button onclick="window.location.href='login.html'">login</button>
+                <button onclick="window.location.href='signup.html'">signup</button>
+            </div>
+        </div>
+        <div id="slideshow">
+            <!--Show Slideshow here-->
+        <img src="" id="happy">    
+        
+        </div>
+
+        <div id="sort-buttons">
+           <select id="sel"onchange="change()">
+               <option value="">filter</option>
+               <option value="high">High</option>
+               <option value="low">low</option>
+           </select>
+           <button onclick='window.location.href="trending.html"'>lets go to Trendng</button>
+           <input type="text" id="query" placeholder="get movie"   oninput="debounce(main,1000)"type="text" >
+         
+           <button onclick="getitem()"> search</button>
+          
+          
+        
+       
+           <hr>
+           <div id="sec">
+           <div id="pakdo">
+       
+           </div>
+           <div id="double"></div>
+           <div id="recom">
+             <h1>Recomended</h1>
+             <p>rating >8</p>
+           </div>
+         </div>
+            <!--Add sorting here-->
+        </div>
+        <div id="movies1">
+            <!--Show list of movies here-->
+        </div>
+        <div id="movies">
+            <!--Show list of movies here-->
+        </div>
+    </body>
+
+</html>
+<script>
+
+// var arr=[
+//   {img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs-Yqv2NimMocElg-Gdn3qXl23Ckc3qVsAGw&usqp=CAU"},
+//   {img:"https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UY67_CR0,0,45,67_AL_.jpg"},
+//   {img: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY67_CR1,0,45,67_AL_.jpg"}
+// ]
+
+let container = document.getElementById("movies1");
+
+// let data = [];
+// var url="http://www.omdbapi.com/?apikey=faf4e461&t=movie"
+
+
+// fetch(url)
+//   .then(function (res) {
+//     return res.json();
+//   })
+//   .then(function (res) {
+// //    console.log(res.search)
+//     // appendProducts(res)
+//   })
+//   .catch(function(err){
+//       console.log(err)
+//   })
+  
+
+
+
+var moviedata=JSON.parse(localStorage.getItem("movdata"))
+    
+display(moviedata)
+
+  
+    function display(d){
+      document.querySelector("#movies1").innerHTML=""
+   d.map(function(elem){
+   var a = document.createElement("div")
+   a.setAttribute("id","mov")
+  var image =document.createElement("img")
+  image.setAttribute("src",elem.imgurl)
+   var name = document.createElement("h2")
+   name.textContent=elem.title
+var secdiv = document.createElement("div")
+secdiv.setAttribute("id","second")
+   var rate = document.createElement("h4")
+   rate.textContent=elem.rating
+  
+  
+   secdiv.append(name,rate)
+   a.append(image,secdiv)
+   document.querySelector("#movies1").append(a)
+  
+})
+    }
+
+
+var slideimage=document.getElementById("happy")
+
+// document.getElementById("slideshow").addEventListener("click",show)
+hi=JSON.parse(localStorage.getItem("imgdata"))
+var count=0
+
+var slideimage=document.getElementById("happy")
+var i=0
+var x=setInterval(function(){
+ if(i==hi.length){
+     i=0
+ }
+slideimage.src=hi[i]
+i++
+},2000)
+
+ 
+// }
+// else{
+//     clearInterval(x)
+// }
+
+function change(){
+  var a =   document.querySelector("#sel").value
+  if(a =="low"){
+    moviedata.sort(function(b,c){
+  return Number(b.rating)-Number(c.rating)
+    })
+  }
+  if(a == "high"){
+    moviedata.sort(function(b,c){
+  return Number(c.rating)-Number(b.rating)
+    })
+
+  }
+display(moviedata)
+  
+  }
+
+
+
+
+
+
+
+  var count=0
+async function getitem(){
+
+    document.querySelector("#movies1")=""
+
+     try{
+     
+      var aya=document.querySelector("#query").value
+          count++
+        let res=await fetch(`http://www.omdbapi.com/?apikey=faf4e461&s=${aya}`);
+        let res1=await fetch(`http://www.omdbapi.com/?apikey=faf4e461&s=noor`)
+        let data1=await res1.json()
+        let data =await res.json()
+        // console.log(data)
+        //  again(data1)
+          bhejo(data)
+         
+     }
+  
+     catch(err){
+   
+    console.log(err)
+     if(count>1){
+       err=document.createElement("img")
+
+      err.setAttribute("src","https://media.istockphoto.com/photos/computer-error-picture-id1222806141?k=20&m=1222806141&s=612x612&w=0&h=GoODCHnR0mSefDBLWJpnqVnfRKH9ttdYPO0-KEYbb7w=")
+      
+
+      document.querySelector("#pakdo").append(err)
+     }
+    }
+
+  
+    
+  
+    
+  function bhejo(d){
+    document.querySelector("#pakdo").innerHTML=""
+ console.log(d)
+d.Search.forEach(function(el,index){
+  console.log(el)
+
+var div=document.createElement("div")
+var img=document.createElement("img")
+img.setAttribute("src",el.Poster)
+var title=document.createElement("h2")
+title.textContent=el.Title
+var rat=document.createElement("h3")
+rat.textContent=el.Year
+var r=document.createElement("h3")
+r.textContent=Math.round(Math.random()*9)
+
+
+div.append(img,title,rat,r)
+
+document.querySelector("#pakdo").append(div)
+
+
+if(r.textContent>8){
+  var div1=document.createElement("div")
+var img1=document.createElement("img")
+img1.setAttribute("src",el.Poster)
+var title1=document.createElement("h3")
+title1.textContent=el.Title
+var rat1=document.createElement("h4")
+rat1.textContent=el.Year
+// var r=document.createElement("h3")
+// r.textContent=Math.round(Math.random()*9)
+div1.append(img1,title1,rat1)
+document.querySelector("#recom").addEventListener("click",function(){
+      window.location.href="trending.html"
+      trending()
+})
+
+
+document.querySelector("#recom").append(div)
+ }
+
+
+})
+
+
+  }
+
+  }
+  getitem()
+
+  
+
+
+
+  async function searchmovie(){
+    document.querySelector("#movies1").innerHTML=""
+        try{
+    let movie = document.querySelector("#query").value
+    let res = await fetch(`https://www.omdbapi.com/?apikey=d806bd70&s=${movie}`)
+
+    let data = await res.json();
+    return data.Search
+    // console.log("data:", data)
+    }
+    catch(err){
+        console.log("err",err)
+    }
+    }
+
+    async  function main(){
+      let data = await searchmovie()
+      if(data ===undefined){
+          return false
+      }
+      appenddata(data)
+      console.log("data:",data)
+
+    }
+
+    function appenddata(mov){
+        document.querySelector("#movies").innerHTML=""
+        mov.forEach(function(ele){
+     var a = document.createElement("div")
+     a.setAttribute("id","hey")
+
+            let img = document.createElement("img")
+            img.setAttribute("src",ele.Poster)
+            let p =document.createElement("p")
+            p.innerText = ele.Title
+            var h3=document.createElement("h5")
+            h3.textContent= ele.Type
+            a.append(img,p,h3)
+          
+            document.querySelector("#movies").append(a)
+           
+            
+
+            
+            a.addEventListener("click",function(){
+                showme(a,ele.Type,ele.Year)
+            })
+
+
+            document.querySelector("#movies").append(a)
+        })
+    }
+   
+
+   
+
+ //"a"-->debouce()
+ let timerId;
+    function debounce(func,delay){
+        document.querySelector("#movies1").innerHTML=""
+     var n=document.querySelector("#query").value
+    if(n==""){
+      document.querySelector("#movies").innerHTML=""
+    }
+    
+      document.querySelector("#movies").style.display="block"
+      if(timerId){
+          clearTimeout(timerId)
+      }
+    timerId=  setTimeout(function(){
+          func();
+      },delay)
+    }
+
+
+function showme(a,b,c){
+  var h3=document.createElement("h2")
+            h3.textContent=b
+  var h2=document.createElement("h2")
+            h3.textContent=c
+  a.append(h3,h2)
+  document.querySelector("#double").innerHTML=""
+  // var di=document.createElement("div")
+  // di.append(img,p)
+
+  document.querySelector("#double").append(a)
+  document.querySelector("#movies").append(b)
+}
+
+
+
+
+
+
+</script>

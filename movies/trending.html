@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #body{
+        background-color: black;
+    }
+    #pakdo{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        gap:2%;
+        background-color: bisque;
+    }
+    button{
+        background-color: black;
+        color: white;
+    }
+</style>
+<body>
+    <div><button onclick='window.location.href="omdbai.html"'>go back</button></div>
+    <div id="pakdo"></div>
+</body>
+</html>
+
+<script>
+
+
+async function getitem(){
+
+     try{
+      
+        let res=await fetch(`https://www.omdbapi.com/?apikey=faf4e461&s=latest`)
+        let data=await res.json()
+      
+        console.log(data)
+         again(data)
+         
+         
+     }
+  
+     catch(err){
+   
+   console.log(err)
+     }
+    }
+    getitem()
+
+
+
+
+
+
+
+
+
+
+     
+function again(d){
+    // document.querySelector("#pakdo").innerHTML=""
+ console.log(d)
+d.Search.forEach(function(el,index){
+  console.log("el"+el)
+
+var div=document.createElement("div")
+var img=document.createElement("img")
+img.setAttribute("src",el.Poster)
+var title=document.createElement("h2")
+title.textContent=el.Title
+var rat=document.createElement("h3")
+rat.textContent=el.Year
+var r=document.createElement("h3")
+r.textContent=Math.round(Math.random()*9)
+
+
+div.append(img,title,rat,r)
+
+document.querySelector("#pakdo").append(div)
+
+})
+    }
+
+</script>
